@@ -5,10 +5,10 @@ Welcome to the FZY Engine — a modular, lightweight game engine built for flexi
 - [FZY](#fzy)
 - [Logger](#logger)
 - [Math](#mathematics)
-   - [Scalar]()
-   - [Utils]()
-   - [Vector Math]()
-   - [Matrix Math]()
+   - [Scalar](#scalar-mathematics)
+   - [Utils](#utility-functions)
+   - [Vector Math](#vector-mathematics)
+   - [Matrix Math](#matrix-mathematics)
 
 ## FZY
 Provides a fast way to initialize, update and shutdown the engine.  Controls the order of updates so the user doesn't have to, but can by not using these functions
