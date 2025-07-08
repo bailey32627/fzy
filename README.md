@@ -1,7 +1,11 @@
 # FZY Engine
-Welcome to the FZY Engine! This README is structured to help document the major systems of the engine and provide space for each component's functions, responsibilities, and implementation notes.
+Welcome to the FZY Engine — a modular, lightweight game engine built for flexibility and performance. This README serves as an overview and technical reference for each major subsystem in the engine.
 
-# FZY
+## Table of Contents
+- [Logger](#logger)
+- 
+
+## FZY
 Provides a fast way to initialize, update and shutdown the engine.  Controls the order of updates so the user doesn't have to, but can by not using these functions
 
 ## `b8 fzy_initialize( void )`
@@ -31,7 +35,7 @@ Updates the engine and passes the delta time of the last frame to the subsystems
 **Returns:**  
 `true` if all systems are updated successfully
 
-# Logger
+## Logger
  - Provides logging functionality for debugging.  Can be removed by changing the LOG_()_ENABLED to 0
 
 ## `FZY_FATAL( ... )`  
