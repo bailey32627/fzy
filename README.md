@@ -1162,12 +1162,4 @@ Transforms the vec3 by the transpose of the given matrix
 vec3
 
 
-
-
-Last updated:  [2025-07-08]
-
-**Returns:**  
-None
-
-
 Last updated:  [2025-07-08]
