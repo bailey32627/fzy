@@ -1,4 +1,4 @@
-#include "core/logger.h"
+#include "core/fzy_logger.h"
 #include <time.h>
 
 // todo :: temporary

@@ -1,4 +1,4 @@
-#include "core/math.h"
+#include "core/fzy_math.h"
 
 #include <math.h>
 #include <stdlib.h>

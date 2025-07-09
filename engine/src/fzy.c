@@ -1,5 +1,5 @@
 #include "fzy.h"
-#include "core/logger.h"
+#include "core/fzy_logger.h"
 
 b8 fzy_initialize( void )
 {
