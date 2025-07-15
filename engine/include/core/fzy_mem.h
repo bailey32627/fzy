@@ -17,6 +17,7 @@ typedef enum fzy_memory_tag {
     MEM_TAG_HASHTABLE,
     MEM_TAG_INPUTS,
     MEM_TAG_VIEW,
+    MEM_TAG_FONT,
     MEM_TAG_ENTITY,
     MEM_TAG_COMPONENT,
     MEM_TAG_PROCESS,
