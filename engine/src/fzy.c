@@ -27,37 +27,8 @@ const f32 target_frame_time = 1.0f / 60.0f;  // ideal frame timer
 
 u32 frame_count; // the frame counter
 
-//-----------------------------------------------------------------------------
 
-// helper function to process events
-static void process_events( void )
-{
-  SDL_Event event;
-
-  while( SDL_PollEvent(&event) )
-  {
-    switch( event.type )
-    {
-      case SDL_EVENT_MOUSE_WHEEL:
-        input_process_mouse_wheel( (i8)event.wheel.y );
-        break;
-
-      case SDL_EVENT_WINDOW_RESIZED:
-        //renderer_on_resized( event.window.data1, event.window.data2 );
-        break;
-
-      case SDL_EVENT_QUIT:
-        is_running = false;
-        break;
-
-      default:
-        break;
-    }
-  }
-} // --------------------------------------------------------------------------
-
-
-b8 fzy_initialize( const char* title )
+static b8 initialize_core( const char* title )
 {
   if( initialized )
   {
@@ -109,6 +80,44 @@ b8 fzy_initialize( const char* title )
   is_suspended = false;
 
   return true;
+} // -------------------------------------------
+
+// helper function to process events
+static void process_events( void )
+{
+  SDL_Event event;
+
+  while( SDL_PollEvent(&event) )
+  {
+    switch( event.type )
+    {
+      case SDL_EVENT_MOUSE_WHEEL:
+        input_process_mouse_wheel( (i8)event.wheel.y );
+        break;
+
+      case SDL_EVENT_WINDOW_RESIZED:
+        //renderer_on_resized( event.window.data1, event.window.data2 );
+        break;
+
+      case SDL_EVENT_QUIT:
+        is_running = false;
+        break;
+
+      default:
+        break;
+    }
+  }
+} // --------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// Implementation
+// -----------------------------------------------------------------------------
+
+b8 fzy_initialize( const char* title )
+{
+  if( !initialize_core( title) ) return false;
+
+  return true;
 } // --------------------------------------------------------------------------
 
 void fzy_shutdown( void )
@@ -120,6 +129,8 @@ void fzy_shutdown( void )
   SDL_Quit();
 } // --------------------------------------------------------------------------
 
+
+// -----------------------------------------------------------------------------
 void fzy_tick_begin( void )
 {
   process_events();
