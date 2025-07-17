@@ -61,7 +61,7 @@ void queue_push( queue *queue, const void* data );
 
   @param queue - the queue to access
 */
-void queue_pop( queue* queue );
+void* queue_pop( queue* queue );
 
 // Macros -----------------
 #define queue_create( type, capacity, tag ) _queue_create( sizeof( type ), capacity, tag )

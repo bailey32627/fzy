@@ -224,8 +224,7 @@ entity entity_create( void )
 {
   if( living_count < MAX_ENTITIES )
   {
-    entity e = *((entity*)queue_get_front( entity_queue ) );
-    queue_pop( entity_queue );
+    entity e = *((entity*)queue_pop( entity_queue ) );
     living_count++;
     return e;
   }
@@ -271,7 +270,7 @@ component_type_id component_register( const char* name, u32 type_size )
     FZY_ERROR( "component_register :: type is already registered" );
 
   rt = memory_allocate( sizeof( u8 ), MEM_TAG_COMPONENT );
-  *rt = *((u8*)queue_get_front( component_types ));
+  *rt = *((u8*)queue_pop( component_types ));
   hashtable_set( component_registeration, name, rt );
 
   components[ *rt ] = component_array_create( type_size );
@@ -355,7 +354,7 @@ process_type_id process_register( const char* name, process* process )
    FZY_ERROR( "process_register :: process is already registered" );
 
   rt = memory_allocate( sizeof( u8 ), MEM_TAG_PROCESS );
-  *rt = *((u8*)queue_get_front( process_types ));
+  *rt = *((u8*)queue_pop( process_types ));
   hashtable_set( process_registeration, name, rt );
 
   processes[ *rt ] = process;

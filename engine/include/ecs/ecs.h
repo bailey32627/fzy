@@ -16,14 +16,14 @@ b8 ecs_shutdown( void );
 
   @return The created entity
 */
-entity entity_create( void );
+FZY_API entity entity_create( void );
 
 /*
   @brief Destroys the entity and signals that an entity was destroyed
 
   @param entity The entity that will be destroyed
 */
-void entity_destroy( entity entity );
+FZY_API void entity_destroy( entity entity );
 
 /*
   @brief Private - Registers a component to be used in the ecs, macro provided below
@@ -32,14 +32,14 @@ void entity_destroy( entity entity );
   @param name The name of the component type
   @param type_size The size of the component type
 */
-component_type_id component_register( const char* name, u32 type_size );
+FZY_API component_type_id component_register( const char* name, u32 type_size );
 
 /*
   @brief Unregisters a component type from the ecs
 
   @param type_id - the id of the component to unregister
 */
-void component_unregister( const char *name, component_type_id type_id );
+FZY_API void component_unregister( const char *name, component_type_id type_id );
 
 /*
   @brief Adds the given component to the the provided entity
@@ -48,7 +48,7 @@ void component_unregister( const char *name, component_type_id type_id );
   @param type_id the component type to add
   @returns a pointer to the added component
 */
-void* component_add( entity entity, component_type_id type_id );
+FZY_API void* component_add( entity entity, component_type_id type_id );
 
 /*
   @brief Removes the component type from the entity
@@ -56,7 +56,7 @@ void* component_add( entity entity, component_type_id type_id );
   @param entity The entity to remove the component from
   @param type_id - the id of the component type to remove
 */
-void component_remove( entity entity, component_type_id type_id );
+FZY_API void component_remove( entity entity, component_type_id type_id );
 
 /*
   @brief Retrieves the component for the given entity
@@ -65,7 +65,7 @@ void component_remove( entity entity, component_type_id type_id );
   @param type_id The type of component to retrieve
   @return Pointer to the component or 0
 */
-void* component_get( entity entity, component_type_id type_id );
+FZY_API void* component_get( entity entity, component_type_id type_id );
 
 /*
   @brief Retrieves the type index for the component arrays
@@ -73,21 +73,21 @@ void* component_get( entity entity, component_type_id type_id );
   @param type The component type to retrieve
   @return index of the component array
 */
-u8 component_get_type_index( const char* type );
+FZY_API u8 component_get_type_index( const char* type );
 
 /*
   @brief Creates a process to operate on a group of entities
 
   @param signature The signature of the entities the process operates on
 */
-process* process_create( signature signature );
+FZY_API process* process_create( signature signature );
 
 /*
   Frees memory associated with the process
 
   @param process The process to destroy
 */
-void process_destroy( process* process );
+FZY_API void process_destroy( process* process );
 
 /*
   @brief Registers a process with the ECS
@@ -95,14 +95,14 @@ void process_destroy( process* process );
   @param name The name of the process being registered
   @param process Pointer to the process to register
 */
-process_type_id process_register( const char* name, process* process );
+FZY_API process_type_id process_register( const char* name, process* process );
 
 /*
   @brief Unregisters a process and frees the memory
 
   @param name The name of the process to unregister
 */
-void process_unregister( const char* name, process_type_id type_id );
+FZY_API void process_unregister( const char* name, process_type_id type_id );
 
 /*
   @brief Retrieve the process from the ecs
@@ -110,6 +110,6 @@ void process_unregister( const char* name, process_type_id type_id );
   @param name The name of the process to retrieve
   @return Pointer to the process or 0 if not found
 */
-process* process_get( process_type_id type_id );
+FZY_API process* process_get( process_type_id type_id );
 
-process* process_get_by_name( const char *name );
+FZY_API process* process_get_by_name( const char *name );
