@@ -1,32 +1,16 @@
 #include "fzy.h"
 
-void initialize( )
-{
-  fzy_initialize( "test" );
-} // --------------------------------------------------------------------------
-
-void update( )
-{
-  fzy_tick_begin( );
-
-  // update other systems here
-
-  fzy_tick_end( );
-} // --------------------------------------------------------------------------
-
-void shutdown( )
-{
-  fzy_shutdown( );
-} // --------------------------------------------------------------------------
 
 int main()
 {
-  initialize( );
+  fzy_initialize("editor");
 
-  while( fzy_is_running() )
-  {
-    update();
-  }
+  // initialize any systems, components here and register them to the ecs system
+  // the order processes are registered is how they will be updated
 
+  // entry for the engine, this is where the engine begins controlling all functionality
+  fzy_update();
+
+  // cleans up the engine, freeing all memory used in all systems and processes
   fzy_shutdown( );
 }

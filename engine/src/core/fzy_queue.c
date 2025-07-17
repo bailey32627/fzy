@@ -53,14 +53,16 @@ void queue_push( queue* queue, const void* data )
   queue->count++;
 } // ---------------------------------------------------------------------------
 
-void queue_pop( queue* queue )
+void* queue_pop( queue* queue )
 {
   if( queue_is_empty( queue ) )
   {
     FZY_ERROR( "queue_pop :: underflow, empty" );
-    return;
+    return NULL;
   }
 
+  void *res = &queue->data[ queue->front * queue->type_size ];
   queue->front = ( queue->front + 1 ) % queue->capacity;
   queue->count--;
+  return res;
 } // ---------------------------------------------------------------------------

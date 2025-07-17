@@ -70,7 +70,7 @@ hashtable *hashtable_create( u32 capacity, void(*destroy_func)(void*) )
 {
   if( !destroy_func )
   {
-    FZY_ERROR( "hashtable_create :: destroy func cannot be 0" );
+    FZY_ERROR( "hashtable_create :: destroy func cannot be NULL" );
     return 0;
   }
   hashtable* table = memory_allocate( sizeof( hashtable ), MEM_TAG_HASHTABLE );

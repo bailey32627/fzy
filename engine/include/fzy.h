@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defines.h"
+#include "ecs/ecs.h"
 
 /*
   Interface for the engines core features.  This is used to udpate the event subsystem
@@ -20,15 +21,10 @@ FZY_API b8 fzy_initialize( const char* title );
 */
 FZY_API void fzy_shutdown( void );
 
-/*
-  @brief Begins the frame timer for this iteration of the subsystems
+/**
+  @brief Updates the engine and ticks all the systems
 */
-FZY_API void fzy_tick_begin( void );
-
-/*
-  @brief Ends the frame timer for this iteration of the subsystems
-*/
-FZY_API void fzy_tick_end( void );
+FZY_API void fzy_update( void );
 
 /*
   @brief Gets the last frame time
@@ -36,6 +32,7 @@ FZY_API void fzy_tick_end( void );
 */
 FZY_API f32 fzy_delta_time( void );
 
+/**
+  @brief Suspends the system from updating the processes in the ecs
+*/
 FZY_API void fzy_set_suspend( b8 suspend );
-
-FZY_API b8 fzy_is_running( void );
