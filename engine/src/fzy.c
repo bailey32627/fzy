@@ -126,6 +126,9 @@ void fzy_shutdown( void )
   if( !ecs_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the ecs" );
   if( !input_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the input system" );
   if( !event_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the event system" );
+  #ifdef FZY_CONFIG_DEBUG
+    FZY_INFO( "%s", memory_get_usage_str() );
+  #endif
   if( !memory_shutdown( ) ) FZY_ERROR( "fzy_shutdown :: failed to shutdown memory system" );
 
   SDL_Quit();

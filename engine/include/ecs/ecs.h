@@ -111,5 +111,3 @@ FZY_API void process_unregister( const char* name, process_type_id type_id );
   @return Pointer to the process or 0 if not found
 */
 FZY_API process* process_get( process_type_id type_id );
-
-FZY_API process* process_get_by_name( const char *name );

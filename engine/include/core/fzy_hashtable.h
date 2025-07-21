@@ -16,24 +16,27 @@ typedef struct hashtable_t hashtable;
   @param destroy_func Function to free memory held in the table
   @return Pointer to the hashtable
 */
-FZY_API hashtable *hashtable_create( u32 capacity, void (*destroy_func)(void*) );
+FZY_API hashtable *hashtable_create( u32 capacity );
 
 /**
   @brief Frees the hashtable, has ability to provide a free function for the
     data stored in the table
   @param table - The table to be freed
+  @param destroy_fn - the function to destroy any entities
 */
-FZY_API void hashtable_destroy( hashtable *table );
+FZY_API void hashtable_destroy( hashtable *table, void (*destroy_fn)(void*) );
 
 /**
-  @brief Frees the hashtable, has the ability to provide a free function for the data
-    stored in the table
-  @param table - The table to be freed
+  @brief Sets the resource at the key, to the value
+
+  @param table - The table to access
+  @param key - the key to the item
+  @param value - the value to set the resource to
 */
 FZY_API void hashtable_set( hashtable *table, const char *key, void* value );
 
 /**
-  @brief Retrieve the value stored at the key in the hashtable
+  @brief Retrieve the value stored at the key in the hashtable, will increament the reference count
   @param table - the hashtabel to access
   @param key - the key to access
   @return Ptr - pointer to the element at the key
@@ -41,9 +44,9 @@ FZY_API void hashtable_set( hashtable *table, const char *key, void* value );
 FZY_API void *hashtable_get( hashtable *table, const char* key );
 
 /**
-  @brief Removes the value at the key and returns it
+  @brief Removes the value at the key and returns it, will decrement the reference count
     sets the value at the key to null
   @param table - The table to access
   @param key - the key to remove
 */
-FZY_API void hashtable_remove( hashtable* table, const char* key );
+FZY_API void* hashtable_remove( hashtable* table, const char* key );

@@ -4,6 +4,7 @@
 #include "core/fzy_queue.h"
 #include "core/fzy_hashtable.h"
 
+
 //----------------------------------------------------------------------------
 //  entity tracking
 //----------------------------------------------------------------------------
@@ -153,8 +154,8 @@ b8 ecs_initialize( void )
   process_types = queue_create( u8, MAX_PROCESSES, MEM_TAG_PROCESS );
 
   // create hashtables
-  component_registeration = hashtable_create( MAX_COMPONENTS + 7, unregister_component_type );
-  process_registeration = hashtable_create( MAX_COMPONENTS + 7, unregister_process_type );
+  component_registeration = hashtable_create( MAX_COMPONENTS * 2 );
+  process_registeration = hashtable_create( MAX_COMPONENTS * 2 );
 
   for( u16 i = 0; i < MAX_ENTITIES; i++ )
   {
@@ -190,7 +191,7 @@ b8 ecs_shutdown( void )
 
   if( component_registeration )
   {
-    hashtable_destroy( component_registeration );
+    hashtable_destroy( component_registeration, unregister_component_type );
     component_registeration = 0;
   }
 
@@ -206,7 +207,7 @@ b8 ecs_shutdown( void )
 
   if( process_registeration )
   {
-    hashtable_destroy( process_registeration );
+    hashtable_destroy( process_registeration, unregister_process_type );
     process_registeration = 0;
   }
 
@@ -266,7 +267,8 @@ component_type_id component_register( const char* name, u32 type_size )
     FZY_ERROR( "component_register :: too many components are registered" );
 
   u8* rt = hashtable_get( component_registeration, name );
-  if( rt != 0 )
+
+  if( rt )
     FZY_ERROR( "component_register :: type is already registered" );
 
   rt = memory_allocate( sizeof( u8 ), MEM_TAG_COMPONENT );
@@ -279,11 +281,11 @@ component_type_id component_register( const char* name, u32 type_size )
 
 void component_unregister( const char *name, component_type_id type_id )
 {
-  u8* rt = hashtable_get( component_registeration, name );
+  u8* rt = (u8*)hashtable_remove( component_registeration, name );
   if( rt )
   {
     if( *rt != type_id ) FZY_ERROR( "component_unregister :: typeid / registered type mismatch");
-    hashtable_remove( component_registeration, name );
+
     queue_push( component_types, rt );
     if( components[ *rt ] )
     {
@@ -363,7 +365,7 @@ process_type_id process_register( const char* name, process* process )
 
 void process_unregister( const char* name, process_type_id type_id )
 {
-  u8* rt = hashtable_get( process_registeration, name );
+  u8* rt = hashtable_remove( process_registeration, name );
   if( rt )
   {
     hashtable_remove( process_registeration, name );
@@ -380,13 +382,5 @@ process* process_get( process_type_id type_id )
 {
   if( processes[ type_id ] )
     return processes[ type_id ];
-  return NULL;
-} // --------------------------------------------------------------------------
-
-process* process_get_by_name( const char *name )
-{
-  u8 *rt = hashtable_get( process_registeration, name );
-  if( rt )
-    return processes[ *rt ];
   return NULL;
 } // --------------------------------------------------------------------------
