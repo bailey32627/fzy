@@ -1,10 +1,13 @@
 #pragma once
 
 #include "defines.h"
+
 #include "ecs/ecs.h"
 
 #include "renderer/resources/shader.h"
 #include "renderer/resources/mesh.h"
+#include "renderer/resources/texture.h"
+#include "renderer/resources/material.h"
 
 /*
   Interface for the engines core features.  This is used to udpate the event subsystem

@@ -68,6 +68,8 @@ static b8 initialize_core( const char* title )
   }
 
   shader_manager_initialize();
+  texture_manager_initialize();
+  material_manager_initialize();
   mesh_manager_initialize();
 
   initialized = true;
@@ -81,6 +83,10 @@ static b8 initialize_core( const char* title )
 
   is_running = true;
   is_suspended = false;
+
+  #ifdef FZY_CONFIG_DEBUG
+    FZY_INFO( "%s", memory_get_usage_str() );
+  #endif
 
   return true;
 } // -------------------------------------------
@@ -127,8 +133,10 @@ b8 fzy_initialize( const char* title )
 void fzy_shutdown( void )
 {
   mesh_manager_shutdown();
+  material_manager_shutdown();
+  texture_manager_shutdown();
   shader_manager_shutdown();
-  
+
   if( !ecs_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the ecs" );
   if( !input_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the input system" );
   if( !event_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the event system" );

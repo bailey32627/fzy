@@ -35,6 +35,7 @@ typedef struct gl_shader
 // ----------------------------------------------------------------------------------
 
 static hashtable *shader_manager = NULL;
+static b8 initialized = false;
 
 //-----------------------------------------------------------------------------------
 // Static helper functions
@@ -129,12 +130,18 @@ u32 gl_link_shader( u32 vertex_shader, u32 fragment_shader )
 // ----------------------------------------------------------------------------------
 void shader_manager_initialize( void )
 {
+  if( initialized ) return;
   shader_manager = hashtable_create( 128 );
+  initialized = true;
 } // -------------------------------------------------------------------------
 
 void shader_manager_shutdown( void )
 {
+  if( !shader_manager ) return;
+
   hashtable_destroy( shader_manager, shader_destroy );
+  initialized = false;
+  shader_manager = NULL;
 } // -------------------------------------------------------------------------
 
 shader* shader_add( const char *name, const char* vertex_source, const char* fragment_source )

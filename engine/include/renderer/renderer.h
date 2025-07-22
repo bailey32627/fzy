@@ -1,7 +1,6 @@
 #pragma once
 
 #include "defines.h"
-#include "renderer/resources/resource_types.h"
 
 typedef enum render_flags
 {

@@ -13,7 +13,8 @@
 //----------------------------------------------------------------------------------
 //  resource manager
 // ---------------------------------------------------------------------------------
-hashtable *mesh_manager = NULL;
+static hashtable *mesh_manager = NULL;
+static b8 initialized = false;
 
 //----------------------------------------------------------------------------------
 // Structs
@@ -223,12 +224,19 @@ static void mesh_destroy( mesh* mesh )
 // ---------------------------------------------------------------------------------
 void mesh_manager_initialize( void )
 {
+  if( initialized ) return;
+
   mesh_manager = hashtable_create( 2048 );
+  initialized = true;
 } // -------------------------------------------------------------------------
 
 void mesh_manager_shutdown( void )
 {
+  if( !mesh_manager ) return;
+
   hashtable_destroy( mesh_manager, mesh_destroy );
+  initialized = false;
+  mesh_manager = NULL;
 } // -------------------------------------------------------------------------
 
 mesh* mesh_add( const char* name, u32 vertex_quantity, u32 vertex_stride, material *material, b8 dynamic )
