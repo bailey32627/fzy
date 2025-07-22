@@ -3,6 +3,9 @@
 #include "defines.h"
 #include "ecs/ecs.h"
 
+#include "renderer/resources/shader.h"
+#include "renderer/resources/mesh.h"
+
 /*
   Interface for the engines core features.  This is used to udpate the event subsystem
   and input driven events
