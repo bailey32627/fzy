@@ -15,22 +15,6 @@ void check_gl_error( void );
 
 
 
-
-
-
-/** Represents a texture in opengl */
-typedef struct gl_texture
-{
-  u32 id;             // opengl texture id
-  u32 format;         // opengl pixel format
-  i32 width;          // width of the texture
-  i32 height;         // height of the texture
-  u32 channels;       // the number of color channels used in the texture
-  u32 atlas_square;   // number of textures held by the atlas, must be a square
-
-} gl_texture;
-// ---------------------------------------------------------------------------
-
 /** @brief Represents a framebuffer in opengl */
 typedef struct gl_framebuffer
 {

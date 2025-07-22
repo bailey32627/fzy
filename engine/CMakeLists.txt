@@ -24,6 +24,10 @@ target_link_libraries(Engine PUBLIC SDL3::SDL3)
 # === Glad (or any other backend) ===
 target_link_libraries(Engine PUBLIC glad)
 
+target_include_directories(Engine PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb
+)
+
 # === Conditional compile definitions based on backend ===
 if(SUPPORT_OPENGL)
     target_compile_definitions(Engine PRIVATE FZY_RENDERER_OPENGL)
