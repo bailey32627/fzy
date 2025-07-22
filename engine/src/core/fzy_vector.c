@@ -190,24 +190,46 @@ void vector_shrink( vector *vector )
   }
 } // ---------------------------------------------------------------------------
 
-void vector_fill( vector *vector, void *data, u32 count )
+void vector_fill( vector *vector, void *data, u32 count, b8 trunc )
 {
   #ifdef FZY_CONFIG_DEBUG
     if( vector == 0 ) FZY_ERROR( "fzy_vector_fill :: vector is null." );
   #endif
 
-  if( vector->capacity < count )
+  if( trunc )
   {
-    u64 new_size = vector->size * count;
-    vector->capacity = count;
-    void* new_data = memory_reallocate( vector->data, vector->size * vector->capacity, new_size, vector->memory_tag );
-    if( !new_data )
+    if( vector->capacity < count )
     {
-      FZY_ERROR( "fzy_vector_fill :: failed to reallocate data array." );
+      u64 new_size = vector->size * count;
+      vector->capacity = count;
+      void* new_data = memory_reallocate( vector->data, vector->size * vector->capacity, new_size, vector->memory_tag );
+      if( !new_data )
+      {
+        FZY_ERROR( "fzy_vector_fill :: failed to reallocate data array." );
+      }
+      memory_copy( vector->data, new_data, vector->size * count );
+      vector->count = count;
     }
-    memory_copy( vector->data, new_data, vector->size * count );
-    vector->count = count;
   }
+  else
+  {
+    if( vector->capacity < vector->count + count )
+    {
+      u64 new_size = vector->size * vector->capacity * 2;
+      void *new_data = memory_reallocate( vector->data, vector->size * vector->capacity, new_size, vector->memory_tag );
+      if( !new_data )
+      {
+        FZY_ERROR( "fzy_vector_push :: failed to reallocate data array." );
+      }
+      vector->data = new_data;
+      vector->capacity *= 2;
+    }
+
+    u8* pos = (u8*)vector->data + (vector->count * vector->size );
+    pos = memory_copy( pos, data, vector->size * count );
+    vector->count += count;
+  }
+
 } // ---------------------------------------------------------------------------
 
 u32 vector_stride( vector* vector )

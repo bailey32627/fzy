@@ -1,10 +1,36 @@
 #pragma once
 
 #include "defines.h"
-#include "renderer/resources/resource_types.h"
+
+//-----------------------------------------------------------------------------
+// Structs
+// ----------------------------------------------------------------------------
+
+/**  @brief Describes data in a uniform, Placed here to expose to all shader types  */
+typedef enum uniform_type
+{
+  UNIFORM_TYPE_INT = 0,
+  UNIFORM_TYPE_FLOAT,
+  UNIFORM_TYPE_VEC2,
+  UNIFORM_TYPE_VEC3,
+  UNIFORM_TYPE_VEC4,
+  UNIFORM_TYPE_MAT3,
+  UNIFORM_TYPE_MAT4
+
+} uniform_type;
+// ---------------------------------------------------------------------------
+
+/** @brief Represents a generic shader, implemented in the backend */
+typedef struct shader
+{
+  char name[ MAX_NAME_LENGTH ];   // name of the shader
+  void* internal_data;  // data maintained by the backend
+
+} shader;
+// -------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------
-// Shaders
+// Shader implementation
 // --------------------------------------------------------------------------------
 /**
   @brief Initializes the shader manager that ensure each shader is only initialized once

@@ -9,6 +9,27 @@
 
 #include "renderer/gl/gl_types.h"
 
+// ----------------------------------------------------------------------------------
+// Structs
+// ----------------------------------------------------------------------------------
+/** @brief Holds the uniform data in the hashtable */
+typedef struct gl_uniform
+{
+  i32 location;  // the location of the uniform
+  u8 type;       // holds the type of uniform
+
+} gl_uniform;
+// --------------------------------------------------------------------------
+
+/** @brief Represents a shader program in openGL */
+typedef struct gl_shader
+{
+  u32 program;         // the shader program maintained by opengl
+  hashtable *uniforms; // the uniforms used to draw this shader
+
+} gl_shader;
+// ---------------------------------------------------------------------------
+
 //-----------------------------------------------------------------------------------
 // Resource Manager
 // ----------------------------------------------------------------------------------
@@ -37,6 +58,7 @@ void shader_destroy( shader* sdr )
     memory_delete( id, sizeof( struct gl_shader ), MEM_TAG_SHADER );
   }
   memory_delete( sdr, sizeof( struct shader ), MEM_TAG_SHADER );
+  sdr = NULL;
 } // -------------------------------------------------------------------------
 
 u32 gl_compile_shader( const char *code, u32 type )
@@ -138,6 +160,7 @@ shader* shader_add( const char *name, const char* vertex_source, const char* fra
   }
   id->uniforms = hashtable_create( 64 );
   sdr = memory_allocate( sizeof( struct shader ), MEM_TAG_SHADER );
+  string_copy( sdr->name, MAX_NAME_LENGTH, name );
   sdr->internal_data = id;
   hashtable_set( shader_manager, name, sdr );
   return sdr;

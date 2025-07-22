@@ -32,6 +32,7 @@ FZY_API void hashtable_destroy( hashtable *table, void (*destroy_fn)(void*) );
   @param table - The table to access
   @param key - the key to the item
   @param value - the value to set the resource to
+  @return u64 - hash value to the resource
 */
 FZY_API void hashtable_set( hashtable *table, const char *key, void* value );
 

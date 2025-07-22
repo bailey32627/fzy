@@ -67,6 +67,9 @@ static b8 initialize_core( const char* title )
      return false;
   }
 
+  shader_manager_initialize();
+  mesh_manager_initialize();
+
   initialized = true;
 
   clock_start( &_clock );
@@ -123,6 +126,9 @@ b8 fzy_initialize( const char* title )
 
 void fzy_shutdown( void )
 {
+  mesh_manager_shutdown();
+  shader_manager_shutdown();
+  
   if( !ecs_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the ecs" );
   if( !input_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the input system" );
   if( !event_system_shutdown() ) FZY_ERROR( "fzy_shutdown :: failed to shutdown the event system" );

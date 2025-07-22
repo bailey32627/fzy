@@ -95,11 +95,12 @@ FZY_API void vector_shrink( vector *vector );
 /*
   @brief Fills the vector with the given data
 
-  @param vector The vector to access
-  @param data The data to fill with
-  @count The number of elements in the data array param
+  @param vector - The vector to access
+  @param data - The data to fill with
+  @param count - The number of elements in the data array param
+  @param trunc - indicates if the data in the array should be overriden
 */
-FZY_API void vector_fill( vector *vector, void *data, u32 count );
+FZY_API void vector_fill( vector *vector, void *data, u32 count, b8 trunc );
 
 /*
   @brief Gets the stride of the vector

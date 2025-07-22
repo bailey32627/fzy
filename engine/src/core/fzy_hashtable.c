@@ -27,7 +27,7 @@ static inline u64 fnv1a_hash64( const char *key )
 /** @brief Represents an entry in the hashtable */
 typedef struct entry
 {
-  char name[128];
+  char name[MAX_NAME_LENGTH];
   u64 hash;
   u32 ref_count;
   void* data;

@@ -106,6 +106,8 @@ STATIC_ASSERT(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 
 #endif
 
+#define MAX_NAME_LENGTH 128
+
 /*
     @Brief Defines the mathematics types used in the engine
 */
